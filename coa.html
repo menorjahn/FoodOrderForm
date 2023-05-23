@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Food Order Form</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 30px;
+    }
+
+    /* Form Styles */
+    .form-container {
+      width: 420px;
+      margin: 0 auto;
+      background-color: #e2dd93;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 3px;
+      border: 2px solid #080808;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    h3 {
+        text-align: center;
+        color:#4b4d4b;
+    }
+    h4 {
+        text-align: center;
+        color:#4b4d4b;
+    }
+    @media screen and (max-width: 480px) {
+      .form-container {
+        padding: 10px;
+      }
+    }
+    </style>
+</head>
+<body>
+    <Body background="food.jpg">
+
+  <div class="form-container">
+    <form id="foodOrderForm" onsubmit="return validateForm()">
+        <h3><i>Delicious Delights Satisfy:</i></h3>
+       <h4> <i>Satisfy Your Cravings with our Food Order Form!</i></h4>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <span class="error" id="nameError"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+        <span class="error" id="phoneError"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+        <span class="error" id="addressError"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="food">Foods:</label>
+        <select id="food" name="food" required>
+          <option value="">Select an item</option>
+          <option value="burger">Burger</option>
+          <option value="pizza">Pizza</option>
+          <option value="sushi">Sushi</option>
+          <option value="sushi">Fries</option>
+          <option value="sushi">Burrito</option>
+          <option value="sushi">Chicken</option>
+        </select>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" required>
+            <span class="error" id="quantityError"></span>
+          </div>
+        <br>
+        <label for="drink">Drinks:</label>
+        <select id="drink" name="drink" required>
+            <option value="">Select an item</option>
+            <option value="burger">Milktea</option>
+            <option value="pizza">Juice</option>
+            <option value="sushi">Smoothie</option>
+            <option value="sushi">Tea</option>
+            <option value="sushi">Coffee</option>
+            <option value="sushi">Soda</option>
+          </select>
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantityy" name="quantity" min="1" max="10" required>
+            <span class="error" id="quantityError"></span>
+          </div>
+        <span class="error" id="foodError"></span>
+      </div>
+      
+      
+      
+      <div class="form-group">
+        <label for="notes">Additional Notes:</label>
+        <textarea id="notes" name="notes" rows="3"></textarea>
+      </div>
+      
+      <input type="submit" value="Place Order" class="submit-button">
+    </form>
+  </div>
+<script>
+  function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var address = document.getElementById("address").value;
+    var food = document.getElementById("food").value;
+    var food = document.getElementById("drink").value;
+    var quantity = document.getElementById("quantity").value;
+    var quantity = document.getElementById("quantityy").value;
+
+    // Resetting error messages
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phoneError").innerHTML = "";
+    document.getElementById("addressError").innerHTML = "";
+    document.getElementById("foodError").innerHTML = "";
+    document.getElementById("drinkError").innerHTML = "";
+    document.getElementById("quantityError").innerHTML = "";
+    document.getElementById("quantityyError").innerHTML = "";
+
+    var isValid = true;
+
+    // Name validation
+    if (name === "") {
+      document.getElementById("nameError").innerHTML = "Name is required";
+      isValid = false;
+    }
+
+    // Email validation
+    if (email === "") {
+      document.getElementById("emailError").innerHTML = "Email is required";
+      isValid = false;
+    } else if (!validateEmail(email)) {
+      document.getElementById("emailError").innerHTML = "Invalid email format";
+      isValid = false;
+    }
+
+    // Phone validation
+    if (phone === "") {
+      document.getElementById("phoneError").innerHTML = "Phone is required";
+      isValid = false;
+    }
+
+    // Address validation
+    if (address === "") {
+      document.getElementById("addressError").innerHTML = "Address is required";
+      isValid = false;
+    }
+
+    // Food validation
+    if (food === "") {
+      document.getElementById("foodError").innerHTML = "Food item is required";
+      isValid = false;
+    }
+    // Drink validation
+    if (drink === "") {
+      document.getElementById("drinkError").innerHTML = "Drink item is required";
+      isValid = false;
+    }
+
+    // Quantity validation
+    if (quantity === "" || quantity < 1 || quantity > 10) {
+      document.getElementById("quantityError").innerHTML = "Quantity should be between 1 and 10";
+      isValid = false;
+    }
+
+    if (quantity === "" || quantity < 1 || quantity > 10) {
+      document.getElementById("quantityyError").innerHTML = "Quantity should be between 1 and 10";
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  // Email format validation
+  function validateEmail(email) {
+    var emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email);
+  }
+</script>
+</body>
+</html>
